@@ -1,0 +1,19 @@
+{
+  "name": "lord/chat-app",
+  "description": "made in august 2024",
+  "autoload": {
+    "psr-4": {
+      "Lord\\ChatApp\\": "src/"
+    }
+  },
+  "scripts": {
+    "dev": "php -S localhost:8080 -t public"
+  },
+  "authors": [
+    {
+      "name": "lord",
+      "email": "dannncode@gmail.com"
+    }
+  ],
+  "require": {}
+}
