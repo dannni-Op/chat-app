@@ -3,7 +3,7 @@
   "description": "made in august 2024",
   "autoload": {
     "psr-4": {
-      "Lord\\ChatApp\\": "src/"
+      "App\\": "src/"
     }
   },
   "scripts": {
