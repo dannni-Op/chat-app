@@ -38,7 +38,7 @@ class Router {
 
         foreach(self::$routes as $route) {
             $pattern = "#^" . $route['route'] . "$#";
-            if( preg_match($pattern, $route['route'], $matches) && $method == $route["method"]) {
+            if( preg_match($pattern, $path, $matches) && $method == $route["method"]) {
                 $controller = new $route["controller"];
                 $action = $route["action"];
                 
