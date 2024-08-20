@@ -2,6 +2,8 @@
 
 use App\Services\AuthService;
 use App\Views\View;
+use App\Models\{ SignupModel, SigninModel };
+use \Throwable;
 
 class AuthController {
 
@@ -24,7 +26,13 @@ class AuthController {
     }
 
     public function api_signup(){
-
+        $request = new SignupModel($_POST["firstname"], $_POST["lastname"], $_POST["username"], $_POST["password"], $_FILES["image"]["error"] === UPLOAD_ERR_NO_FILE ? null : $_FILES["image"]);
+        try {
+            $this->authService->signup($request);
+            View::redirect("/auth/signin");
+        } catch (Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 
     public function api_signin(){

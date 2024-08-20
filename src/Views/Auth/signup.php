@@ -3,7 +3,7 @@
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign Up free account</h2>
     </div>
     <div class="mt-10">
-        <form class="space-y-6" action="/api/auth/signin" method="POST">
+        <form class="space-y-6" action="/api/auth/signup" method="POST" enctype="multipart/form-data">
             <div>   
                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Firstname</label>
                 <div class="mt-2">
@@ -33,9 +33,8 @@
             </div>
 
             <div>
-                <!-- <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Username</label> -->
                 <div class="mt-2 relative inline-block w-full text-sm font-medium leading-6">
-                    <input type="file" required class="file:absolute file:right-0 file:bg-indigo-600 file:text-white file:border-0 file:py-1 file:px-3 file:rounded text-gray-600 hover:file:bg-indigo-500 hover:cursor-pointer">
+                    <input type="file" name="image" class="file:absolute file:right-0 file:bg-indigo-600 file:text-white file:border-0 file:py-1 file:px-3 file:rounded text-gray-600 hover:file:bg-indigo-500 hover:cursor-pointer">
                 </div>
             </div>
 
