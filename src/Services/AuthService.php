@@ -6,13 +6,16 @@ use App\Validations\AuthValidation;
 use \Throwable;
 use App\Exceptions\ValidationException;
 use App\Database\Database;
+use App\Services\SessionService;
 
 class AuthService {
 
     private UserRepository $userRepository;
+    private SessionService $sessionService;
     
     public function __construct(){
         $this->userRepository = new UserRepository();
+        $this->sessionService = new SessionService();
     }
 
     public function signup(SignupModel $request){
@@ -40,8 +43,15 @@ class AuthService {
         }
     }
 
-    public function signin(){
+    public function signin(SigninModel $request){
+        AuthValidation::signin($request);
 
+        $user = $this->userRepository->findByUsername($request->username);
+        if( !$user ) throw new ValidationException("Username or password is wrong.");
+
+        if( !password_verify($request->password, $user->password) ) throw new ValidationException("Username or password is wrong.");
+
+        $this->sessionService->create($user->id);
     }
 
     public function logout(){

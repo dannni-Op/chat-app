@@ -22,4 +22,12 @@ class AuthValidation {
 
         if( strlen($request->password) < 8) throw new ValidationException("Password must be at least 8 characters long.");
     }
+
+    public static function signin(SigninModel $request){
+        if(!$request->username || !$request->password){
+            throw new ValidationException("Username or password fields cannot be empty.");
+        }
+
+        if( strlen($request->password) < 8) throw new ValidationException("Password must be at least 8 characters long.");
+    }
 }

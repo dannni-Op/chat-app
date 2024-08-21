@@ -36,6 +36,15 @@ class AuthController {
     }
 
     public function api_signin(){
+        $request = new SigninModel();
+        $request->username = $_POST["username"];
+        $request->password = $_POST["password"];
+        try {
+            $this->authService->signin($request);
+            View::redirect("/chats");
+        } catch (Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 
     public function api_logout(){

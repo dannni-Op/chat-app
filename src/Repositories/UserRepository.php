@@ -61,9 +61,11 @@ class UserRepository {
             if( !$row ) return null;
             
             $user = new UserModel();
+            $user->id = $row["id"];
             $user->firstname = $row["firstname"];
             $user->lastname = $row["lastname"];
             $user->username = $row["username"];
+            $user->password = $row["password"];
             $user->status = $row["status"];
             if( $row["image"] ){
                 $user->image = $row["image"];

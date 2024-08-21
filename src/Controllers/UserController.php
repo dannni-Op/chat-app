@@ -10,4 +10,8 @@ class UserController {
     public function __construct(){
         $this->userService = new UserService();
     }
+
+    public function index(){
+        echo "Hello world";
+    }
 }
