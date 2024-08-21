@@ -2,6 +2,7 @@
 
 use App\Database\Database;
 use App\Services\UserService;
+use App\Views\View;
 
 class UserController {
     
@@ -12,6 +13,6 @@ class UserController {
     }
 
     public function index(){
-        echo "Hello world";
+        View::render("Chat/index");
     }
 }
