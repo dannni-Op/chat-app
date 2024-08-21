@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-use App\Services\{AuthService, SessionService };
+use App\Services\{AuthService};
 use App\Views\View;
 use App\Models\{ SignupModel, SigninModel };
 use \Throwable;
@@ -8,11 +8,9 @@ use \Throwable;
 class AuthController {
 
     private AuthService $authServivce;
-    private SessionService $sessionService;
 
     public function __construct(){
         $this->authService = new AuthService();
-        $this->sessionService = new SessionService();
     }
     
     public function signup(){
@@ -50,7 +48,7 @@ class AuthController {
     }
 
     public function api_logout(){
-        $this->sessionService->destroy();
+        $this->authService->logout();
         View::redirect("/auth/signin");
     }
 }

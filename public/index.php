@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 use App\Router;
-use App\Controllers\{ UserController, AuthController };
+use App\Controllers\{ UserController, AuthController, ChatController };
 
 //auth
 Router::get("/auth/signup", AuthController::class, "signup");
@@ -14,6 +14,6 @@ Router::post("/api/auth/signin", AuthController::class, "api_signin");
 Router::post("/api/auth/logout", AuthController::class, "api_logout");
 
 //chats
-Router::get("/chats", UserController::class, "index");
+Router::get("/chats", ChatController::class, "index");
 
 Router::dispatch();

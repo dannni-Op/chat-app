@@ -51,10 +51,13 @@ class AuthService {
 
         if( !password_verify($request->password, $user->password) ) throw new ValidationException("Username or password is wrong.");
 
+        $this->userRepository->update($user->id, ["status" => "online"]);
         $this->sessionService->create($user->id);
     }
 
     public function logout(){
-        
+        $session = $this->sessionService->current();
+        $this->sessionService->destroy();
+        $this->userRepository->update($session->user_id, ["status" => "offline"]);
     }
 }

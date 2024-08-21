@@ -76,4 +76,25 @@ class UserRepository {
             $stmt->closeCursor();
         }
     }
+
+    public function update(int $id, array $request){
+        $columns = [];
+        try {
+            foreach($request as $key => $value){
+                $columns[] = "$key = :$key";
+            }
+
+            $clause = implode(', ', $columns);
+
+            $stmt = $this->connection->prepare("update users set $clause where id = :id");
+            $stmt->bindParam(":id", $id);
+            foreach($request as $key => $value){
+                $stmt->bindParam(":$key", $value);
+            }
+            
+            $stmt->execute();
+        } finally {
+            $stmt->closeCursor();
+        }
+    }
 }
