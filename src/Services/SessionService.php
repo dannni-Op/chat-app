@@ -22,12 +22,14 @@ class SessionService {
     }
     
     //logout perlu perbaikan
-    public function current(): SessionModel {
+    public function current(): ?SessionModel {
         $id = $_COOKIE[self::$COOKIE_NAME] ?? '';
         if( $id ){
             $session = $this->sessionRepository->findById($id);
             return $session;
         }
+
+        return null;
     }
 
     public function destroy(){

@@ -4,20 +4,21 @@ class Router {
 
     private static array $routes = [];
 
-    private static function addRoute(string $method, string $route, $controller, string $action){
+    private static function addRoute(string $method, string $route, $controller, string $action, array $middlewares){
         self::$routes[] = [
             "method" => $method,
             "route" => $route,
             "controller" => $controller,
-            "action" => $action
+            "action" => $action,
+            "middlewares" => $middlewares,
         ];
     }
 
-    public static function get(string $route, string $controller, string $action){
-        self::addRoute("GET", $route, $controller, $action);
+    public static function get(string $route, string $controller, string $action, array $middlewares = []){
+        self::addRoute("GET", $route, $controller, $action, $middlewares);
     }
-    public static function post(string $route, string $controller, string $action){
-        self::addRoute("POST", $route, $controller, $action);
+    public static function post(string $route, string $controller, string $action, array $middlewares = []){
+        self::addRoute("POST", $route, $controller, $action, $middlewares);
 
     }
     public static function put(string $route, string $controller, string $action){
@@ -41,6 +42,11 @@ class Router {
             if( preg_match($pattern, $path, $matches) && $method == $route["method"]) {
                 $controller = new $route["controller"];
                 $action = $route["action"];
+
+                foreach ($route["middlewares"] as $middleware) {
+                    $instance = new $middleware;
+                    $instance->before();
+                }
                 
                 array_shift($matches);
                 call_user_func_array([$controller, $action], $matches);
