@@ -28,7 +28,7 @@ class SessionRepository {
         if( !$session ) return null;
         $result = new SessionModel();
         $result->id = $session["id"];
-        $result->user_id = $session["user_id"];
+        $result->userId = $session["user_id"];
         return $result;
     }
 

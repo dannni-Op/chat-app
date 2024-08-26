@@ -1,9 +1,11 @@
 <main class="sm:mx-auto sm:w-full sm:max-w-sm h-screen border px-6 py-12 lg:px-8">
-
     <div class="flex justify-between items-center mb-5">
-        <div>
-            <h1>Pic</h1>
-            <p class="text-sm">Active</p>
+        <div class="flex items-center gap-4" >
+	    <img class="w-12 rounded-full" src="images/<?= $params["user"]->image ?>" alt="profil" />
+	    <div class="" >
+                <p class="text-sm text-center"><?= $params["user"]->firstname . " " . $params["user"]->lastname?></p>
+                <p class="text-xs "><?= $params["user"]->status ?></p>
+            </div>
         </div>
         <form action="/api/auth/logout" method="post">
             <button class="text-sm bg-indigo-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">Logout</button>
@@ -23,25 +25,17 @@
         </button>
     </div>
     <div>
+        <?php foreach($params["users"] as $user): ?>
         <a href="/chats/1" class="flex justify-between items-center mb-4">
             <div class="flex gap-4 items-center">
-                <h1>Pic</h1>
+		        <img class="w-12 rounded-full" src="images/<?= $user['image'] ?>" alt="profil" />
                 <div>
-                    <p class="text-sm">Active</p>
-                    <p class="text-sm">Active</p>
+                    <p class="text-sm"><?= $user["firstname"] . " " . $user["lastname"]; ?></p>
+                    <p class="text-xs"><?= $user["status"]; ?></p>
                 </div>
             </div>
-            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+            <div class="w-3 h-3 rounded-full <?= $user["status"] == 'online' ? 'bg-green-400' : 'bg-green-200' ?>"></div>
         </a>
-        <a href="/chats/2" class="flex justify-between items-center mb-5">
-            <div class="flex gap-4 items-center">
-                <h1>Pic</h1>
-                <div>
-                    <p class="text-sm">Active</p>
-                    <p class="text-sm">Active</p>
-                </div>
-            </div>
-            <div class="w-3 h-3 rounded-full bg-green-100"></div>
-        </a>
+        <?php endforeach; ?>
     </div>
 </main>

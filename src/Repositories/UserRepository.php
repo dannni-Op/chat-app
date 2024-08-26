@@ -77,6 +77,18 @@ class UserRepository {
         }
     }
 
+    public function findMany(): array {
+        $stmt = $this->connection->prepare("select * from users");
+        $stmt->execute();
+
+        try {
+            $users = $stmt->fetchAll();
+            return $users;
+        } finally {
+            $stmt->closeCursor();
+        }
+    }
+
     public function update(int $id, array $request){
         $columns = [];
         try {

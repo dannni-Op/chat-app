@@ -15,6 +15,8 @@ Router::post("/api/auth/signin", AuthController::class, "api_signin");
 Router::post("/api/auth/logout", AuthController::class, "api_logout");
 
 //chats
-Router::get("/chats", ChatController::class, "index", [MustLoginMiddleware::class]);
+//Router::get("/chats", ChatController::class, "index", [MustLoginMiddleware::class]);
+Router::get("/chats", ChatController::class, "index");
+Router::get("/chats/([0-9a-zA-Z]*)", ChatController::class, "chat");
 
 Router::dispatch();

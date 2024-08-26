@@ -9,4 +9,13 @@ class UserService {
         $this->userRepository = new UserRepository();
     }
 
+    public function findById(int $id) {
+        $user = $this->userRepository->findById($id);
+        return $user;
+    }
+
+    public function findMany() {
+        $users = $this->userRepository->findMany();
+        return $users;
+    }
 }
