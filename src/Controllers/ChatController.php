@@ -28,11 +28,16 @@ class ChatController {
     }
 
     public function chat($id){
-        $user = $this->userService->findById((int) $id);
+        $session = $this->sessionService->current();
+        
+        $userId = (int) $session->userId;
+        $user = $this->userService->findById($userId);
+
+        $recipient = $this->userService->findById((int) $id);
         if( !$user ){
             View::redirect("/chats");
         }
 
-        View::render("Chat/chat", ["user" => $user]);
+        View::render("Chat/chat", ["user" => $user, "recipient" => $recipient]);
     }
 }

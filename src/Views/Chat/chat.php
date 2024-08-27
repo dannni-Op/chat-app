@@ -54,12 +54,13 @@
     </div>
   </div>
   <div class="border h-full w-full self-end py-4">
-    <div class="pt-2 text-gray-600 flex items-center">
-      <input class="w-full bg-white h-10 px-5 rounded-lg text-sm focus:outline-none"
-        type="text" placeholder="Type a message">
-      <form action="/api/messages" method="post">
-        <button class="text-sm bg-indigo-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">Send</button>
-      </form>
-    </div>
+    <form action="/api/messages" method="post" class="pt-2 text-gray-600 flex items-center">
+      <div class="w-full">
+        <input name="senderId" type="hidden" value="<?= $params['user']->id; ?>">
+        <input name="recipientId" type="hidden" value="<?= $params['recipient']->id; ?>">
+        <input name="message" class="w-full bg-white h-10 px-5 rounded-lg text-sm focus:outline-none" type="text" placeholder="Type a message">
+      </div>
+      <button class="text-sm bg-indigo-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded me-5">Send</button>
+    </form>
   </div>
 </main>

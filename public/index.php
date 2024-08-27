@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 use App\Router;
-use App\Controllers\{ UserController, AuthController, ChatController };
+use App\Controllers\{ UserController, AuthController, ChatController, MessageController };
 use App\Middlewares\{ MustNotLoginMiddleware, MustLoginMiddleware };
 
 //auth
@@ -18,5 +18,7 @@ Router::post("/api/auth/logout", AuthController::class, "api_logout");
 //Router::get("/chats", ChatController::class, "index", [MustLoginMiddleware::class]);
 Router::get("/chats", ChatController::class, "index");
 Router::get("/chats/([0-9a-zA-Z]*)", ChatController::class, "chat");
+
+Router::post("/api/messages", MessageController::class, "api_create");
 
 Router::dispatch();
