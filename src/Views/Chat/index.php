@@ -26,7 +26,7 @@
     </div>
     <div>
         <?php foreach($params["users"] as $user): ?>
-        <a href="/chats/1" class="flex justify-between items-center mb-4">
+    <a href="/chats/<?= $user['id']; ?>" class="flex justify-between items-center mb-4">
             <div class="flex gap-4 items-center">
 		        <img class="w-12 rounded-full" src="images/<?= $user['image'] ?>" alt="profil" />
                 <div>

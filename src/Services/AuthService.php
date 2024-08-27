@@ -58,6 +58,6 @@ class AuthService {
     public function logout(){
         $session = $this->sessionService->current();
         $this->sessionService->destroy();
-        $this->userRepository->update($session->user_id, ["status" => "offline"]);
+        $this->userRepository->update($session->userId, ["status" => "offline"]);
     }
 }

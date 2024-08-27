@@ -36,6 +36,7 @@ class UserRepository {
             if( !$row ) return null;
             
             $user = new UserModel();
+            $user->id = $row["id"];
             $user->firstname = $row["firstname"];
             $user->lastname = $row["lastname"];
             $user->username = $row["username"];

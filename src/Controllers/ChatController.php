@@ -24,7 +24,7 @@ class ChatController {
         $users = $this->userService->findMany();
         $users = array_filter($users, fn($value) => $value["id"] !== $userId);
 
-        View::render("Chat/index", ["users" => $users, "user" => $user]);
+        View::render("Chat/index", ["users" => $users, "user" => $user, "title" => "Chats"]);
     }
 
     public function chat($id){
@@ -33,7 +33,6 @@ class ChatController {
             View::redirect("/chats");
         }
 
-        $params = ["id" => (int) $id];
-        View::render("Chat/chat", $params);
+        View::render("Chat/chat", ["user" => $user]);
     }
 }
