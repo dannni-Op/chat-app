@@ -21,12 +21,12 @@ class Router {
         self::addRoute("POST", $route, $controller, $action, $middlewares);
 
     }
-    public static function put(string $route, string $controller, string $action){
-        self::addRoute("PUT", $route, $controller, $action);
+    public static function put(string $route, string $controller, string $action, array $middlewares = []){
+        self::addRoute("PUT", $route, $controller, $action, $middlewares);
 
     }
-    public static function delete(string $route, string $controller, string $action){
-        self::addRoute("DELETE", $route, $controller, $action);
+    public static function delete(string $route, string $controller, string $action, array $middlewares = []){
+        self::addRoute("DELETE", $route, $controller, $action, $middlewares);
     }
 
     public static function dispatch(){

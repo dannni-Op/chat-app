@@ -3,25 +3,17 @@
     <div class="flex items-center justify-between w-full" >
       <a href="http://localhost:8080/chats">Back</a>
       <div class="" >
-        <p class="text-sm text-center"><?= $params["user"]->firstname . " " . $params["user"]->lastname; ?></p>
-        <p class="text-xs text-center"><?= $params["user"]->status; ?></p>
+        <p class="text-sm text-center"><?= $params["recipient"]->firstname . " " . $params["recipient"]->lastname; ?></p>
+        <p class="text-xs text-center"><?= $params["recipient"]->status; ?></p>
       </div>
       <div class="w-12 h-12 rounded-full overflow-hidden">
         <img class="" src="http://localhost:8080/images/dummy.jpg" alt="profil" />
       </div>
     </div>
   </div>
-  <div class="py-3 flex flex-col justify-between gap-4 overflow-auto px-2 bg-slate-100">
-    <div class="flex items-start gap-2.5">
-      <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
-      <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-white rounded-e-xl rounded-es-xl shadow-md">
-        <div class="flex items-center space-x-2 rtl:space-x-reverse">
-          <span class="text-xs font-semibold text-gray-900">Bonnie Green</span>
-          <span class="text-xs font-normal text-gray-500">11:46</span>
-        </div>
-        <p class="text-sm font-normal py-2.5 text-gray-900 ">That's awesome. I think our users will really appreciate the improvements.</p>
-      </div>
-    </div>
+  <div class="py-3 flex flex-col gap-4 overflow-auto px-2 bg-slate-100">
+    <?php foreach($params["messages"] as $message): ?>
+    <?php if( $message->senderId == $params["user"]->id): ?>
     <div class="flex items-start gap-2.5" dir="rtl">
       <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
       <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-gray-100 rtl:bg-indigo-600 rounded-e-xl rounded-es-xl shadow-md">
@@ -29,9 +21,10 @@
           <span class="text-xs font-semibold text-gray-900 rtl:text-white">Bonnie Green</span>
           <span class="text-xs font-normal text-gray-500 rtl:text-white">11:46</span>
         </div>
-        <p class="text-sm font-normal py-2.5 text-gray-900 rtl:text-white">That's awesome. I think our users will really appreciate the improvements.</p>
+        <p class="text-sm font-normal py-2.5 text-gray-900 "><?= $message->messageText; ?></p>
       </div>
     </div>
+    <?php else: ?>
     <div class="flex items-start gap-2.5">
       <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
       <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-white rounded-e-xl rounded-es-xl shadow-md">
@@ -39,19 +32,11 @@
           <span class="text-xs font-semibold text-gray-900">Bonnie Green</span>
           <span class="text-xs font-normal text-gray-500">11:46</span>
         </div>
-        <p class="text-sm font-normal py-2.5 text-gray-900 ">That's awesome. I think our users will really appreciate the improvements.</p>
+        <p class="text-sm font-normal py-2.5 text-gray-900 "><?= $message->messageText; ?></p>
       </div>
     </div>
-    <div class="flex items-start gap-2.5" dir="rtl">
-      <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
-      <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-gray-100 rtl:bg-indigo-600 rounded-e-xl rounded-es-xl shadow-md">
-        <div class="flex items-center space-x-2 rtl:space-x-reverse">
-          <span class="text-xs font-semibold text-gray-900 rtl:text-white">Bonnie Green</span>
-          <span class="text-xs font-normal text-gray-500 rtl:text-white">11:46</span>
-        </div>
-        <p class="text-sm font-normal py-2.5 text-gray-900 rtl:text-white">That's awesome. I think our users will really appreciate the improvements.</p>
-      </div>
-    </div>
+    <?php endif; ?>
+    <?php endforeach; ?>
   </div>
   <div class="border h-full w-full self-end py-4">
     <form action="/api/messages" method="post" class="pt-2 text-gray-600 flex items-center">
