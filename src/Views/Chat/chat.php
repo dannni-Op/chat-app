@@ -14,18 +14,18 @@
   <div id="chat" class="py-3 flex flex-col gap-4 overflow-auto px-2 bg-slate-100">
     <?php foreach($params["messages"] as $message): ?>
     <?php if( $message->senderId == $params["user"]->id): ?>
-    <div id="message" class="flex items-start gap-2.5" dir="rtl">
-      <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
-      <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-gray-100 rtl:bg-indigo-600 rounded-e-xl rounded-es-xl shadow-md">
-        <div class="flex items-center space-x-2 rtl:space-x-reverse">
-          <span class="text-xs font-semibold text-gray-900 rtl:text-white">Bonnie Green</span>
-          <span class="text-xs font-normal text-gray-500 rtl:text-white">11:46</span>
+    <div id="message" class="mx-end flex items-start justify-end gap-2.5" >
+      <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-indigo-600 rounded-s-xl rounded-ee-xl shadow-md">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-semibold text-white">Bonnie Green</span>
+          <span class="text-xs font-normal text-white">11:46</span>
         </div>
-        <p class="text-sm font-normal py-2.5 text-gray-900 "><?= $message->messageText; ?></p>
+        <p class="text-sm font-normal py-2.5 text-white"><?= $message->messageText; ?></p>
       </div>
+      <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
     </div>
     <?php else: ?>
-    <div id="message" class="flex items-start gap-2.5">
+    <div id="message" class="flex items-start gap-2.5 justify-start">
       <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
       <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-white rounded-e-xl rounded-es-xl shadow-md">
         <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -49,80 +49,4 @@
     </form>
   </div>
 </main>
-<script>
-  const chatBox = document.getElementById("chat");
-  const countChat = document.querySelectorAll("#message").length;
-  let isActive = true;
-
-  const senderId = document.getElementById("sender").value;
-  const recipientId = document.getElementById("recipient").value;
-
-  const xml = new XMLHttpRequest();
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-  setInterval(() => {
-
-    xml.onreadystatechange = () => {
-      if( xml.readyState == XMLHttpRequest.DONE) {
-        if( xml.status == 200 ) {
-          const response = JSON.parse(xml.responseText);
-          if( response.length > countChat ){
-            //render chat
-            let messages = '';  
-            response.forEach( e => {
-
-              if( e.senderId == senderId ){
-                const temp = `<div id='message' class="flex items-start gap-2.5" dir="rtl">
-                <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
-                <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-gray-100 rtl:bg-indigo-600 rounded-e-xl rounded-es-xl shadow-md">
-                <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                <span class="text-xs font-semibold text-gray-900 rtl:text-white">Bonnie Green</span>
-                <span class="text-xs font-normal text-gray-500 rtl:text-white">11:46</span>
-                </div>
-                <p class="text-sm font-normal py-2.5 text-gray-900 ">${e.messageText}</p>
-                </div>
-                </div>`;
-
-                messages += temp;
-              } else {
-                const temp = `<div id='message' class="flex items-start gap-2.5">
-                <img class="w-12 rounded-full" src="http://localhost:8080/images/dummy.jpg" alt="">
-                <div class="flex flex-col w-[220px] leading-1.5 p-4 border-gray-200 bg-white rounded-e-xl rounded-es-xl shadow-md">
-                <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                <span class="text-xs font-semibold text-gray-900">Bonnie Green</span>
-                <span class="text-xs font-normal text-gray-500">11:46</span>
-                </div>
-                <p class="text-sm font-normal py-2.5 text-gray-900 ">${e.messageText}</p>
-                </div>
-                </div>`;
-
-                messages += temp;
-              }
-
-              chatBox.innerHTML = messages;
-              isActive = true;
-            });
-          }
-        }
-      }
-    }
-
-    xml.open("GET", `http://localhost:8080/api/messages?senderId=${senderId}&recipientId=${recipientId}`);
-    xml.send();
-
-    if( isActive ) {
-      console.log(isActive);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-  }, 2000);
-
-  chatBox.onmouseover = () => {
-    isActive = false;
-  }
-
-  // chatBox.onmouseout = () => {
-  //   isActive = true;
-  // }
-
-</script>
+<script src="http://localhost:8080/js/chat.js"></script>
