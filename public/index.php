@@ -16,8 +16,14 @@ Router::post("/api/auth/logout", AuthController::class, "api_logout");
 
 //chats
 Router::get("/chats", ChatController::class, "index", [MustLoginMiddleware::class]);
+Router::get("/chats/search", ChatController::class, "index", [MustLoginMiddleware::class]);
 Router::get("/chats/([0-9a-zA-Z]*)", ChatController::class, "chat", [MustLoginMiddleware::class]);
 
+//messages
 Router::post("/api/messages", MessageController::class, "api_create", [MustLoginMiddleware::class]);
+Router::get("/api/messages", MessageController::class, "api_get", [MustLoginMiddleware::class]);
+
+//users
+Router::get("/users", UserController::class, "api_getAll", [MustLoginMiddleware::class]);
 
 Router::dispatch();

@@ -23,10 +23,18 @@ class ChatController {
     $userId = (int) $session->userId;
     $user = $this->userService->findById($userId);
 
+    $keyword = '';
     $users = $this->userService->findMany();
-    $users = array_filter($users, fn($value) => $value["id"] !== $userId);
+    if( isset($_GET["name"]) ) {
+      $keyword = $_GET["name"];
+      if( !$keyword ) {
+        View::redirect("/chats");
+      }
+      $users = $this->userService->searchByName($keyword);
+    } 
 
-    View::render("Chat/index", ["users" => $users, "user" => $user, "title" => "Chats"]);
+    $users = array_filter($users, fn($user) => $user->id !== $userId);
+    View::render("Chat/index", ["users" => $users, "user" => $user, "title" => "Chats", "keyword" => $keyword]);
   }
 
   public function chat($id){

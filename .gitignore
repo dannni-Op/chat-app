@@ -2,3 +2,4 @@ composer.phar
 /vendor/
 
 /public/images/*
+/public/js/*
